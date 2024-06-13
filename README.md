@@ -7,3 +7,5 @@ The next is a calendar that allows users to schedule meetings and appointments.
 There is also a media player that should be able to 'play' a variety of media file types.
 
 More specific instructions contained in pdf
+
+Individual responsibilities are laid out here : https://docs.google.com/spreadsheets/d/1nueLn7L_ETH14DUt6iaKGDW3HOBXcDXNeQWhdC4iwYs/edit?usp=sharing
