@@ -7,14 +7,15 @@ public abstract class Event {
 	int eventLength;
 	String name;
 	
-	public Event(String name, int eventLen, int month, int date, int hour, int minute) {
+	public Event(String name, int eventLen,int year, int month, int date, int hour, int minute) {
 		this.name = name;
 		this.eventLength = eventLen;
-		SetDate(month, date, hour, minute);
+		SetDate(year,month, date, hour, minute);
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void SetDate(int month, int date, int hour, int minute) {
+	public void SetDate(int year, int month, int date, int hour, int minute) {
+		this.date.setYear(year);
 		this.date.setMonth(month);
 		this.date.setDate(date);
 		this.date.setHours(hour);

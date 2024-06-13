@@ -45,8 +45,8 @@ public class Calendar extends App {
 		
 		//add event
 		case 0:
-			addevent();
-            		break;
+			addEvent();
+            break;
         
         //remove event by name
 		case 1:
@@ -77,16 +77,124 @@ public class Calendar extends App {
 		//get event name, time, length and type
 		System.out.println("Please enter event Name");
 		String name = s.nextLine();
-		System.out.println("When will this event occur?");
-		int month = 1;
-		int day = 1;
-		int hour = 1;
-		int minute = 1;
+		int year = 0;
+		int month = 0;
+		int day = 0;
+		int hour = 0;
+		int minute = 0;
+		int eventLength = 0;
+		
+		while(true) {
+			System.out.println("When will this event occur? (Format MM/DD/YYYY");
+			String date = s.nextLine();
+			String[] dissembledDate;
+			try {
+				dissembledDate = date.split("/");
+				
+				if (dissembledDate.length != 3) {
+					//raise exception
+				}
+				
+				year = Integer.parseInt(dissembledDate[2]);
+				month = Integer.parseInt(dissembledDate[0]);;
+				day = Integer.parseInt(dissembledDate[1]);
+				
+				if(month > 12 || month < 1) {
+					//raise exception
+				}
+				
+				if(day > 1) {
+					switch(month) {
+					case 1:
+					case 3:
+					case 5:
+					case 7:
+					case 8:
+					case 10:
+					case 12:
+						if (day > 31) {
+							//raise exception
+						}
+					break;
+					
+					case 4:
+					case 6:
+					case 9:
+					case 11:
+						if (day > 30) {
+							//raise exception
+						}
+					break;
+					
+					case 2:
+						if(year%4 == 0) {
+							if (day > 29) {
+								
+							}
+						}
+						else {
+							if(day > 28) {
+								
+							}
+						}
+					}
+				}
+				else {
+					//raise exception
+				}
+				break;
+			}
+			catch(Exception e) {
+				System.out.println("There was a format issue with the provided date");
+				System.out.println("Please try again");
+			}
+		}
+		
+		while(true) {
+			System.out.println("What time will this event occur? (format HH:MM, 24 hour clock)");
+			String time = s.nextLine();
+			String[] dissembledTime;
+			try {
+				dissembledTime = time.split("/");
+				
+				if (dissembledTime.length != 2) {
+					//raise exception
+				}
+				hour = Integer.parseInt(dissembledTime[0]);
+				minute = Integer.parseInt(dissembledTime[1]);
+				
+				if(hour > 23 || hour < 0) {
+					//raise exception
+				}
+				if(minute > 59 || minute < 0) {
+					//raise exception
+				}
+				break;
+			}
+			catch(Exception e) {
+				System.out.println("There was a format issue with the provided time");
+				System.out.println("Please try again");
+			}
+		}
+		
 		// date (Set minute/hour/day/month)
 		System.out.println("Will this event include a meeting?(y/n)");
 		String subdecision = s.next();
-		System.out.println("how long will this event be?(1-60 min)");
-		int eventLength = Integer.parseInt(s.nextLine());
+		
+		while(true) {
+			try {
+				System.out.println("how long will this event be?(1-60 min)");
+				eventLength = Integer.parseInt(s.nextLine());
+				
+				if(eventLength > 60|| eventLength < 1) {
+					//raise exception
+				}
+				break;
+			}
+			catch(Exception e) {
+				System.out.println("Please choose a number from 1-60");
+			}
+		}
 		
 		//check if meeting
 		if(subdecision =="y"){
@@ -96,13 +204,13 @@ public class Calendar extends App {
 		    System.out.println("Please enter contact number");
 		    String contact_num = s.nextLine();
 		    
-		    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength,month, day, hour, minute));
+		    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength, year,month, day, hour, minute));
 		}
 		else{
 		   //setup non_meeting
 		   System.out.println("Please enter a brief description of the event");
 		   String description = s.nextLine();
-		   event_calendar.add(new non_meeting(name, description,eventLength, month, day, hour, minute));
+		   event_calendar.add(new non_meeting(name, description,eventLength, year, month, day, hour, minute));
 		}
 	}
 	
