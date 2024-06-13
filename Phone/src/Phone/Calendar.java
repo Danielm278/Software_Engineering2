@@ -45,58 +45,12 @@ public class Calendar extends App {
 		
 		//add event
 		case 0:
-			//get event name, time, length and type
-			System.out.println("Please enter event Name");
-			String name = s.nextLine();
-			System.out.println("When will this event occur?");
-			int month = 1;
-			int day = 1;
-			int hour = 1;
-			int minute = 1;
-            // date (Set minute/hour/day/month)
-            System.out.println("Will this event include a meeting?(y/n)");
-            String subdecision = s.next();
-            System.out.println("how long will this event be?(1-60 min)");
-            int eventLength = Integer.parseInt(s.nextLine());
-            
-            //check if meeting
-            if(subdecision =="y"){
-            		//setup meeting
-                    System.out.println("Please enter contact name");
-                    String contact_name = s.nextLine();
-                    System.out.println("Please enter contact number");
-                    String contact_num = s.nextLine();
-                    
-                    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength,month, day, hour, minute));
-            }
-            else{
-            	   //setup non_meeting
-                   System.out.println("Please enter a brief description of the event");
-                   String description = s.nextLine();
-                   event_calendar.add(new non_meeting(name, description,eventLength, month, day, hour, minute));
-            }
-            break;
+			addevent();
+            		break;
         
         //remove event by name
 		case 1:
-			System.out.println("Please choose event to remove (by name)");
-			String rmName = s.nextLine();
-			boolean rm_flag = false;
-			
-			for(int i = 0; i < event_calendar.size(); i++) {
-				if(event_calendar.get(i).name == rmName) {
-					event_calendar.remove(i);
-					rm_flag = true;
-					break;
-				}
-			}
-			
-			if(rm_flag) {
-				System.out.println("Removed event from calendar");
-			}
-			else {
-				System.out.println("Failed to find event, Please try again");
-			}
+			rm_byName();
 			break;
 		
 		//display events for certain date
@@ -117,5 +71,59 @@ public class Calendar extends App {
 		}
 		
 		return 0;
+	}
+
+	public void addEvent(){
+		//get event name, time, length and type
+		System.out.println("Please enter event Name");
+		String name = s.nextLine();
+		System.out.println("When will this event occur?");
+		int month = 1;
+		int day = 1;
+		int hour = 1;
+		int minute = 1;
+		// date (Set minute/hour/day/month)
+		System.out.println("Will this event include a meeting?(y/n)");
+		String subdecision = s.next();
+		System.out.println("how long will this event be?(1-60 min)");
+		int eventLength = Integer.parseInt(s.nextLine());
+		
+		//check if meeting
+		if(subdecision =="y"){
+			//setup meeting
+		    System.out.println("Please enter contact name");
+		    String contact_name = s.nextLine();
+		    System.out.println("Please enter contact number");
+		    String contact_num = s.nextLine();
+		    
+		    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength,month, day, hour, minute));
+		}
+		else{
+		   //setup non_meeting
+		   System.out.println("Please enter a brief description of the event");
+		   String description = s.nextLine();
+		   event_calendar.add(new non_meeting(name, description,eventLength, month, day, hour, minute));
+		}
+	}
+	
+	public void rm_byName(){
+		System.out.println("Please choose event to remove (by name)");
+		String rmName = s.nextLine();
+		boolean rm_flag = false;
+		
+		for(int i = 0; i < event_calendar.size(); i++) {
+			if(event_calendar.get(i).name == rmName) {
+				event_calendar.remove(i);
+				rm_flag = true;
+				break;
+			}
+		}
+		
+		if(rm_flag) {
+			System.out.println("Removed event from calendar");
+		}
+		else {
+			System.out.println("Failed to find event, Please try again");
+		}
 	}
 }
