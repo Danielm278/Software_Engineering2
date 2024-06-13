@@ -92,7 +92,7 @@ public class Calendar extends App {
 				dissembledDate = date.split("/");
 				
 				if (dissembledDate.length != 3) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				
 				year = Integer.parseInt(dissembledDate[2]);
@@ -100,7 +100,7 @@ public class Calendar extends App {
 				day = Integer.parseInt(dissembledDate[1]);
 				
 				if(month > 12 || month < 1) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				
 				if(day > 1) {
@@ -113,7 +113,7 @@ public class Calendar extends App {
 					case 10:
 					case 12:
 						if (day > 31) {
-							//raise exception
+							throw new Exception("Exception message");
 						}
 					break;
 					
@@ -122,7 +122,7 @@ public class Calendar extends App {
 					case 9:
 					case 11:
 						if (day > 30) {
-							//raise exception
+							throw new Exception("Exception message");
 						}
 					break;
 					
@@ -140,7 +140,7 @@ public class Calendar extends App {
 					}
 				}
 				else {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				break;
 			}
@@ -158,16 +158,16 @@ public class Calendar extends App {
 				dissembledTime = time.split("/");
 				
 				if (dissembledTime.length != 2) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				hour = Integer.parseInt(dissembledTime[0]);
 				minute = Integer.parseInt(dissembledTime[1]);
 				
 				if(hour > 23 || hour < 0) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				if(minute > 59 || minute < 0) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				break;
 			}
@@ -187,7 +187,7 @@ public class Calendar extends App {
 				eventLength = Integer.parseInt(s.nextLine());
 				
 				if(eventLength > 60|| eventLength < 1) {
-					//raise exception
+					throw new Exception("Exception message");
 				}
 				break;
 			}
@@ -214,11 +214,16 @@ public class Calendar extends App {
 		}
 	}
 	
+	
+	//remove event
 	public void rm_byName(){
+		
+		//get event name
 		System.out.println("Please choose event to remove (by name)");
 		String rmName = s.nextLine();
 		boolean rm_flag = false;
 		
+		//find and remove
 		for(int i = 0; i < event_calendar.size(); i++) {
 			if(event_calendar.get(i).name == rmName) {
 				event_calendar.remove(i);
@@ -227,6 +232,7 @@ public class Calendar extends App {
 			}
 		}
 		
+		//signal to user if event was found/removed
 		if(rm_flag) {
 			System.out.println("Removed event from calendar");
 		}
