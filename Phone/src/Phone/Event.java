@@ -15,8 +15,8 @@ public abstract class Event {
 	
 	@SuppressWarnings("deprecation")
 	public void SetDate(int year, int month, int date, int hour, int minute) {
-		this.date.setYear(year);
-		this.date.setMonth(month);
+		this.date.setYear(year-1900);
+		this.date.setMonth(month-1);
 		this.date.setDate(date);
 		this.date.setHours(hour);
 		this.date.setMinutes(minute);
