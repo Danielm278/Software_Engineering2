@@ -17,7 +17,7 @@ public class EntryNode {
 	String name, number;
 	EntryNode next = null;
 	EntryNode prev = null;
-
+	
 	//constructor to allow for definition of data
 	public EntryNode(String name,String number) {
 		this.name = name;

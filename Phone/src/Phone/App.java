@@ -16,7 +16,7 @@ public abstract class App implements IPrintable, Comparable<App>{
 		System.out.println("\nWelcome to " + appName);
 		System.out.println("Please Select which action you wish to take:");
 		for (int i = 0; i < menuOptions.size(); i++){
-			System.out.println(i+") " + menuOptions.get(i));
+			System.out.println((i+1)+") " + menuOptions.get(i));
 		}
 		
 	}
@@ -25,6 +25,8 @@ public abstract class App implements IPrintable, Comparable<App>{
 		int decision = -1;
 		do {
 		decision = s.nextInt();
+		decision -= 1;
+		s.nextLine();
 		}while(decision > menuOptions.size() || decision < 0);
 		
 		if (decision == menuOptions.size() -1){
