@@ -2,10 +2,10 @@
 //Group Id: 12
 //Authors: Ido Lublin, Binyamin Alony, Dana Bakshe, Roni Weiss, Yael Tsabari, Daniel Maya
 
-
+package Phone;
 import java.util.List;
 import java.util.Scanner;
-public class  contactApp{
+public class  ContactsApp{
 
 	public static void startApp(String[] args) {
 		Scanner s = new Scanner(System.in);
@@ -117,17 +117,17 @@ public class  contactApp{
 					System.out.println("<read from file>");
 					System.out.print("Please insert file path: ");
 					String path = s.nextLine();
-					List<String> nodesToAdd = FileManager.readFromFile(path);
+					//List<String> nodesToAdd = FileManager.readFromFile(path);
 					try {
-						for(String line : nodesToAdd) {
-							String[] splitString = line.split(":");
-							if (rootNode == null) {
-								rootNode = new EntryNode(splitString[0], splitString[1]);
-							}else {
-								rootNode = rootNode.addEntry(splitString[0], splitString[1]);
-							}
-							System.out.print("edded - "+splitString[0]+":"+ splitString[1]+"\n");
-						}
+						//for(String line : nodesToAdd) {
+						//	String[] splitString = line.split(":");
+						//	if (rootNode == null) {
+						//		rootNode = new EntryNode(splitString[0], splitString[1]);
+						//	}else {
+						//		rootNode = rootNode.addEntry(splitString[0], splitString[1]);
+						//	}
+						//	System.out.print("edded - "+splitString[0]+":"+ splitString[1]+"\n");
+						//}
 						System.out.print("phonebook imported successfully.");
 					}
 					catch(Error e){
@@ -283,7 +283,7 @@ public class  contactApp{
 				break;
 			case 8: // Save to file
 				System.out.println("<Save to text file>");
-				FileManager.printToFile(rootNode);//calling the removing function
+				//FileManager.printToFile(rootNode);//calling the removing function
 				System.out.println();
 				System.out.println("<file \"myPhoneBook.txt\" saved.>");
 				break;
@@ -291,12 +291,12 @@ public class  contactApp{
 				System.out.println("<read from file>");
 				System.out.print("Please insert file path: ");
 				String path = s.nextLine();
-				List<String> nodesToAdd = FileManager.readFromFile(path);
+				//List<String> nodesToAdd = FileManager.readFromFile(path);
 				try {
-					for(String line : nodesToAdd) {
-						String[] splitString = line.split(":");
-						rootNode = rootNode.addEntry(splitString[0], splitString[1]);
-					}
+					//for(String line : nodesToAdd) {
+					//	String[] splitString = line.split(":");
+					//	rootNode = rootNode.addEntry(splitString[0], splitString[1]);
+					//}
 					System.out.print("phonebook imported successfully.");
 				}
 				catch(Error e){
