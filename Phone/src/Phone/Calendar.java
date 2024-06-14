@@ -18,15 +18,12 @@ public class Calendar extends App {
 		super.addMenuOption("Exit");
 	}
 	
-	@Override
-	public void startApp() { //provide the calendar class access to rootnode of the contact class
-		//setup the menu
+	public Calendar() {
+		super.appId = "2";
+		super.appName = "Calendar";
 		addMenuOptions();
-		
-		//start the app
-		super.startApp();
 	}
-	
+		
 	@Override
 	public int waitForInputAndRun() {
 		//get the user decision in super
