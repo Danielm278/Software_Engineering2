@@ -7,7 +7,7 @@ public class Calendar extends App {
 	
 	//set up the event calendar
 	ArrayList<Event> event_calendar = new ArrayList<Event>();
-	EntryNode contactList;
+	EntryNode contactList = new EntryNode();
 	
 	public void addMenuOptions() {
 		//initialize the menu for the calendar app
@@ -28,7 +28,6 @@ public class Calendar extends App {
 		
 	public void startApp(EntryNode contactList) {
 		this.contactList = contactList;
-		
 		ArrayList<Event> temp = new ArrayList<Event>();
 		for(int i = 0; i < event_calendar.size(); i++) {
 			if((event_calendar.get(i) instanceof Meeting)) {
@@ -49,6 +48,10 @@ public class Calendar extends App {
 	public int waitForInputAndRun() {
 		//get the user decision in super
 		int decision = super.waitForInputAndRun();
+		
+		if(endFlag) {
+			return 0;
+		}
 		
 		
 		ArrayList<Event> temp = new ArrayList<Event>();
@@ -337,10 +340,9 @@ public class Calendar extends App {
 	}
 	
 	public boolean find_contact(String contact_name, String contact_num) {
-		EntryNode rootNode = contactList;
-    	boolean found = false;
+		EntryNode rootNode = this.contactList;
     	
-    	while(rootNode.next != null) {
+    	while(rootNode != null && rootNode.name != null) {
     		if(rootNode.name.equals(contact_name)) {
     			if(rootNode.number.equals(contact_num)) {
 	    			return true;

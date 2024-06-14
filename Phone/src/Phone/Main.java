@@ -24,7 +24,7 @@ public class Main {
 				decision = s.nextInt();
 				}while(decision > appArray.length + 1 || decision < 0);
 				
-				if (decision == appArray.length + 1){
+				if (decision == appArray.length + 2){
 					System.out.println("Thank you for using phone app");
 					System.out.println("Bye Bye");
 					return;

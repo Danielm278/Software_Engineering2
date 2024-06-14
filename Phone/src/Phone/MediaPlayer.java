@@ -14,6 +14,12 @@ public class MediaPlayer extends App{
 		super.addMenuOption("Exit");
 	}
 	
+
+	@Override
+	public void startApp() {
+		super.startApp();
+	}
+	
 	@Override
 	public int waitForInputAndRun() {
 		//get the user decision in super

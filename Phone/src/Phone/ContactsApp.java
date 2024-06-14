@@ -142,8 +142,8 @@ public class  ContactsApp{
 					}
 					break;
 				case 10: //Exit
-					System.out.println("quitting the program.\nthank you!");
-					System. exit(0);
+					System.out.println("Thank you for using the contact app\n");
+					return null;
 				}
 
 				System.out.println();
@@ -308,8 +308,9 @@ public class  ContactsApp{
 				}
 				break;
 			case 10://Exit
-				System.out.println("Thank you for using the contact app\n");			}
+				System.out.println("Thank you for using the contact app\n");			
 				return rootNode;
+			}
 		}
 	}
 }

@@ -38,6 +38,7 @@ public abstract class App implements IPrintable, Comparable<App>{
 	}
 	
 	public void startApp() {
+		endFlag = false;
 		while(!endFlag) {
 			print();
 			waitForInputAndRun();
