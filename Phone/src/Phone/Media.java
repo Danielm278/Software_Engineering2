@@ -60,7 +60,7 @@ public class Media {
 	
 	Boolean isVideo() { return type == MediaType.VIDEO;}
 
-	void play() {
+	void Play() {
 		System.out.println(this.name + " is now playing for " + this.length + " minutes.");
 	}
 	
