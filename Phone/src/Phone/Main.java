@@ -37,7 +37,7 @@ public class Main {
 				else {
 					for(App app : appArray) {
 						if(decisionString.equals(app.appId)){
-							if(app.getClass() == Calendar.class) {
+							if(app instanceof Calendar) {
 								((Calendar)app).startApp(contactList);
 							}
 							else {

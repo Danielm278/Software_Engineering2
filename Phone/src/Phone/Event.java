@@ -14,12 +14,11 @@ public abstract class Event {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void SetDate(int year, int month, int date, int hour, int minute) {
-		this.date.setYear(year-1900);
-		this.date.setMonth(month-1);
-		this.date.setDate(date);
-		this.date.setHours(hour);
-		this.date.setMinutes(minute);
+	public void SetDate(int year, int month, int day, int hour, int minute) {
+        date = new Date(year - 1900, month - 1, day, hour, minute);
+		this.date.setSeconds(0);
+		
+
 	}
 	
 	public boolean removeDate() {

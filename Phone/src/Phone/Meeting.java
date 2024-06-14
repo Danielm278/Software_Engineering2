@@ -12,4 +12,10 @@ public class Meeting extends Event{
 		this.contactName = contactName;
 		this.contactNum = contactNum;
 	}
+
+	
+	public boolean contactRemoved(){//Place the contactlist rootnode as parameter
+		//remove event if contact is no longer in list
+		return false;
+	}
 }

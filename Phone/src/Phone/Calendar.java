@@ -1,6 +1,7 @@
 package Phone;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Calendar extends App {
 	
@@ -30,7 +31,7 @@ public class Calendar extends App {
 		
 		ArrayList<Event> temp = new ArrayList<Event>();
 		for(int i = 0; i < event_calendar.size(); i++) {
-			if((event_calendar.get(i).getClass() == Meeting.class)) {
+			if((event_calendar.get(i) instanceof Meeting)) {
 				Meeting currMeeting = (Meeting)event_calendar.get(i);
 				
 				if(!find_contact(currMeeting.contactName, currMeeting.contactNum)) {
@@ -48,6 +49,7 @@ public class Calendar extends App {
 	public int waitForInputAndRun() {
 		//get the user decision in super
 		int decision = super.waitForInputAndRun();
+		
 		
 		ArrayList<Event> temp = new ArrayList<Event>();
 		for(int i = 0; i < event_calendar.size(); i++) {
@@ -76,6 +78,17 @@ public class Calendar extends App {
 		
 		//display events for certain date
 		case 2:
+			String st_date;
+			System.out.println("Please enter the date. (Format is MM/DD/YYYY)");
+			st_date = s.nextLine();
+			int[] prt_date = validateDate(st_date);
+			
+			if(prt_date != null) {
+				print_byDate(prt_date);
+			}
+			else {
+				System.out.println("Formatting error has occurred\nPlease try again.");
+			}
 			break;
 		
 		//display events for a certain contact
@@ -93,7 +106,131 @@ public class Calendar extends App {
 		
 		return 0;
 	}
+	
+	@SuppressWarnings({ "deprecation"})
+	public void print_byDate(int[] date) {
+		event_calendar = sortByDate();
+		int count = 0;
+		boolean foundFlg = false;
+		for(int i = 0; i < event_calendar.size(); i++) {
+			Event currEvent = event_calendar.get(i);
+			if(currEvent.date.getYear() == (date[0]-1900)) {
+				if(currEvent.date.getMonth() == (date[1]-1)) {
+					if(currEvent.date.getDate() == (date[2])) {
+					count += 1;
+					System.out.println(count + ")	Name: "+ currEvent.name);
+					System.out.println("  	Date: "+ currEvent.date.toString());
+					System.out.println("  	Length: "+ currEvent.eventLength);
+					
+					if(currEvent instanceof Meeting) {
+						System.out.print("  	Contact: " + ((Meeting)currEvent).contactName);
+						System.out.println(", " + ((Meeting)currEvent).contactNum);
+					}
+					else if(currEvent instanceof non_meeting) {
+						System.out.print("  	Description: " + ((non_meeting)currEvent).description);
+					}
+					
+					}
+					foundFlg = true;
+				}
+			}
+		}
+		
+		if(!foundFlg) {
+			System.out.print("<No events found for this date>");
+		}
+	}
+	
+	public ArrayList<Event> sortByDate(){
+		ArrayList<Event> sortedList = event_calendar;
+		
+		sortedList.sort(new Comparator<Event>() {
+			@Override
+		    public int compare(Event o1, Event o2) {
+		        if(o1.date.after(o2.date)) {
+		        	return 1;
+		        }
+		        else if(o2.date.after(o1.date)) {
+		        	return -1;
+		        }
+		        else {
+		        	return 0;
+		        }
+		    }
+		});
+		
+		return sortedList;
+	}
+	
+	public int[] validateDate(String date) {
+		try {
+			String[] dissembledDate;
+			int year;
+			int month;
+			int day;
+			
+			dissembledDate = date.split("/");
+			
+			if (dissembledDate.length != 3) {
+				throw new Exception("Exception message");
+			}
+			
+			year = Integer.parseInt(dissembledDate[2]);
+			month = Integer.parseInt(dissembledDate[0]);;
+			day = Integer.parseInt(dissembledDate[1]);
 
+			if(month > 12 || month < 1) {
+				throw new Exception("Exception message");
+			}
+			
+			if(day > 1) {
+				switch(month) {
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+				case 12:
+					if (day > 31) {
+						throw new Exception("Exception message");
+					}
+				break;
+				
+				case 4:
+				case 6:
+				case 9:
+				case 11:
+					if (day > 30) {
+						throw new Exception("Exception message");
+					}
+				break;
+				
+				case 2:
+					if(year%4 == 0) {
+						if (day > 29) {
+							throw new Exception("Exception message");
+						}
+					}
+					else {
+						if(day > 28) {
+							throw new Exception("Exception message");
+						}
+					}
+				}
+			}
+			else {
+				throw new Exception("Exception message");
+			}
+			
+			int[] date_split = {year, month, day};
+			return date_split;
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public void addEvent(){
 		//get event name, time, length and type
 		System.out.println("Please enter event Name");
@@ -108,61 +245,12 @@ public class Calendar extends App {
 		while(true) {
 			System.out.println("When will this event occur? (Format MM/DD/YYYY)");
 			String date = s.nextLine();
-			String[] dissembledDate;
+			int[] dissembledDate;
 			try {
-				dissembledDate = date.split("/");
-				
-				if (dissembledDate.length != 3) {
-					throw new Exception("Exception message");
-				}
-				
-				year = Integer.parseInt(dissembledDate[2]);
-				month = Integer.parseInt(dissembledDate[0]);;
-				day = Integer.parseInt(dissembledDate[1]);
-				
-				if(month > 12 || month < 1) {
-					throw new Exception("Exception message");
-				}
-				
-				if(day > 1) {
-					switch(month) {
-					case 1:
-					case 3:
-					case 5:
-					case 7:
-					case 8:
-					case 10:
-					case 12:
-						if (day > 31) {
-							throw new Exception("Exception message");
-						}
-					break;
-					
-					case 4:
-					case 6:
-					case 9:
-					case 11:
-						if (day > 30) {
-							throw new Exception("Exception message");
-						}
-					break;
-					
-					case 2:
-						if(year%4 == 0) {
-							if (day > 29) {
-								
-							}
-						}
-						else {
-							if(day > 28) {
-								
-							}
-						}
-					}
-				}
-				else {
-					throw new Exception("Exception message");
-				}
+				dissembledDate = validateDate(date);
+				year = dissembledDate[0];
+				month = dissembledDate[1];
+				day = dissembledDate[2];
 				break;
 			}
 			catch(Exception e) {
@@ -244,6 +332,7 @@ public class Calendar extends App {
 		   System.out.println("Please enter a brief description of the event");
 		   String description = s.nextLine();
 		   event_calendar.add(new non_meeting(name, description,eventLength, year, month, day, hour, minute));
+
 		}
 	}
 	
