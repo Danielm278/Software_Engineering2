@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public abstract class App implements IPrintable{
+public abstract class App implements IPrintable, Comparable<App>{
 	Scanner s = new Scanner(System.in);
 	String appId;
 	String appName;
@@ -13,7 +13,7 @@ public abstract class App implements IPrintable{
 	
 	
 	public void print() {
-		System.out.println("Welcome to " + appName + " (AppId "+appId+")");
+		System.out.println("Welcome to " + appName);
 		System.out.println("Please Select which action you wish to take:");
 		for (int i = 0; i < menuOptions.size(); i++){
 			System.out.println(i+") " + menuOptions.get(i));
@@ -28,8 +28,7 @@ public abstract class App implements IPrintable{
 		}while(decision > menuOptions.size() || decision < 0);
 		
 		if (decision == menuOptions.size() -1){
-			System.out.println("Thank you for using "+ appName);
-			System.out.println("Bye Bye");
+			System.out.println("Thank you for using "+ appName+ "\n");
 			endFlag = true;
 		}
 		//The rest will be managed inside the individual classes
@@ -56,5 +55,12 @@ public abstract class App implements IPrintable{
 		//2. deciding menu options
 		//3. declaring/initializing app name
 		//4. logic specific to app inside the switch statements
+
+    @Override
+    public int compareTo(App app) {
+        // usually toString should not be used,
+        // instead one of the attributes or more in a comparator chain
+        return toString().compareTo(app.appId);
+    }
 	
 }
