@@ -6,6 +6,7 @@ public class Calendar extends App {
 	
 	//set up the event calendar
 	ArrayList<Event> event_calendar = new ArrayList<Event>();
+	EntryNode contactList;
 	
 	public void addMenuOptions() {
 		//initialize the menu for the calendar app
@@ -24,15 +25,38 @@ public class Calendar extends App {
 		addMenuOptions();
 	}
 		
+	public void startApp(EntryNode contactList) {
+		this.contactList = contactList;
+		
+		ArrayList<Event> temp = new ArrayList<Event>();
+		for(int i = 0; i < event_calendar.size(); i++) {
+			if((event_calendar.get(i).getClass() == Meeting.class)) {
+				Meeting currMeeting = (Meeting)event_calendar.get(i);
+				
+				if(!find_contact(currMeeting.contactName, currMeeting.contactNum)) {
+					continue;
+				}
+			}
+			temp.add(event_calendar.get(i));
+		}
+		event_calendar = temp;
+		
+		super.startApp();
+	}
+	
 	@Override
 	public int waitForInputAndRun() {
 		//get the user decision in super
 		int decision = super.waitForInputAndRun();
+		
 		ArrayList<Event> temp = new ArrayList<Event>();
 		for(int i = 0; i < event_calendar.size(); i++) {
-			if(!event_calendar.get(i).removeDate()) {
-				temp.add(event_calendar.get(i));
+			if(event_calendar.get(i).removeDate()) {
+				continue;
 			}
+			
+			temp.add(event_calendar.get(i));
+			
 		}
 		
 		event_calendar = temp;
@@ -82,7 +106,7 @@ public class Calendar extends App {
 		int eventLength = 0;
 		
 		while(true) {
-			System.out.println("When will this event occur? (Format MM/DD/YYYY");
+			System.out.println("When will this event occur? (Format MM/DD/YYYY)");
 			String date = s.nextLine();
 			String[] dissembledDate;
 			try {
@@ -152,7 +176,7 @@ public class Calendar extends App {
 			String time = s.nextLine();
 			String[] dissembledTime;
 			try {
-				dissembledTime = time.split("/");
+				dissembledTime = time.split(":");
 				
 				if (dissembledTime.length != 2) {
 					throw new Exception("Exception message");
@@ -177,6 +201,7 @@ public class Calendar extends App {
 		// date (Set minute/hour/day/month)
 		System.out.println("Will this event include a meeting?(y/n)");
 		String subdecision = s.next();
+		s.nextLine();
 		
 		while(true) {
 			try {
@@ -193,15 +218,26 @@ public class Calendar extends App {
 			}
 		}
 		
+		
 		//check if meeting
-		if(subdecision =="y"){
+		if(subdecision.equals("y")){
 			//setup meeting
 		    System.out.println("Please enter contact name");
 		    String contact_name = s.nextLine();
 		    System.out.println("Please enter contact number");
 		    String contact_num = s.nextLine();
+		    boolean found = find_contact(contact_name, contact_num);
+		    	
+		    	
+	    	if(found) {
+	    		System.out.print("Meeting added successfully");
+			    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength, year,month, day, hour, minute));
+	    	}
+	    	else {
+	    		System.out.print("Unfortunately contact cannot be found\nPlease try again");
+	    	}
 		    
-		    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength, year,month, day, hour, minute));
+		    
 		}
 		else{
 		   //setup non_meeting
@@ -211,6 +247,22 @@ public class Calendar extends App {
 		}
 	}
 	
+	public boolean find_contact(String contact_name, String contact_num) {
+		EntryNode rootNode = contactList;
+    	boolean found = false;
+    	
+    	while(rootNode.next != null) {
+    		if(rootNode.name.equals(contact_name)) {
+    			if(rootNode.number.equals(contact_num)) {
+	    			return true;
+	    		}
+    		}
+    		
+    		rootNode = rootNode.next;
+    	}
+    	
+    	return false;
+	}
 	
 	//remove event
 	public void rm_byName(){
@@ -222,7 +274,7 @@ public class Calendar extends App {
 		
 		//find and remove
 		for(int i = 0; i < event_calendar.size(); i++) {
-			if(event_calendar.get(i).name == rmName) {
+			if(event_calendar.get(i).name.equals(rmName)) {
 				event_calendar.remove(i);
 				rm_flag = true;
 				break;
