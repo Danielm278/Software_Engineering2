@@ -5,9 +5,9 @@
 
 import java.util.List;
 import java.util.Scanner;
-public class Main {
+public class  contactApp{
 
-	public static void main(String[] args) {
+	public static void startApp(String[] args) {
 		Scanner s = new Scanner(System.in);
 		int decision;
 		EntryNode rootNode = null;
