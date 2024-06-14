@@ -1,11 +1,11 @@
 //Class: Main.Java
 //Group Id: 12
 //Authors: Ido Lublin, Binyamin Alony, Dana Bakshe, Roni Weiss, Yael Tsabari, Daniel Maya
-
+package Phone;
 
 import java.util.List;
 import java.util.Scanner;
-public class  contactApp{
+public class  ContactsApp{
 
 	public static void startApp(String[] args) {
 		Scanner s = new Scanner(System.in);
