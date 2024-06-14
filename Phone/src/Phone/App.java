@@ -13,7 +13,7 @@ public abstract class App implements IPrintable, Comparable<App>{
 	
 	
 	public void print() {
-		System.out.println("Welcome to " + appName);
+		System.out.println("\nWelcome to " + appName);
 		System.out.println("Please Select which action you wish to take:");
 		for (int i = 0; i < menuOptions.size(); i++){
 			System.out.println(i+") " + menuOptions.get(i));

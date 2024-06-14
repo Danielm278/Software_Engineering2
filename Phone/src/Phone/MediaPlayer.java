@@ -17,21 +17,30 @@ public class MediaPlayer extends App{
 	@Override
 	public int waitForInputAndRun() {
 		//get the user decision in super
-		while(true) {
-			int decision = super.waitForInputAndRun();
-			switch(decision){
-			case 0:
-				AddMedia();
+		int decision = super.waitForInputAndRun();
+		switch(decision){
+		case 0:
+			AddMedia();
+			break;
+		case 1:
+			if(mediaArray.isEmpty()) {
+				System.out.println("No media files yet. try to add a new media file!");
 				break;
-			case 1:
-				PlayByName(s.nextLine());
+			}
+			System.out.println("enter media name:");
+			s.nextLine();
+			PlayByName(s.nextLine());
+			break;
+		case 2:
+			if(mediaArray.isEmpty()) {
+				System.out.println("No media files yet. try to add a new media file!");
 				break;
-			case 2:
-				for(Media media : mediaArray) {
-					media.Play();
-				}
+			}
+			for(Media media : mediaArray) {
+				media.Play();
 			}
 		}
+		return decision;
 	}
 	
 	void AddMedia() {
@@ -45,7 +54,7 @@ public class MediaPlayer extends App{
 			
 		}
 		for (Media media : mediaArray) {
-			if(media.name == name) {
+			if(media.name.equals(name)) {
 				media.Play();
 				return;
 			}
