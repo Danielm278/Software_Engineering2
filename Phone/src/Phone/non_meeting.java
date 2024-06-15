@@ -8,5 +8,11 @@ public class non_meeting extends Event {
 		// TODO Auto-generated constructor stub
 		this.description = description;
 	}
+	
+	@Override
+	public void print() {
+		super.print();
+		System.out.println("  	Description: " + description);
+	}
 
 }

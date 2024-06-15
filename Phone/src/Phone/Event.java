@@ -2,7 +2,7 @@ package Phone;
 
 import java.util.Date;
 
-public abstract class Event {
+public abstract class Event implements IPrintable{
 	Date date = new Date();
 	int eventLength;
 	String name;
@@ -28,5 +28,11 @@ public abstract class Event {
 			return true;
 		}
 		return false;
+	}
+	
+	public void print() {
+		System.out.println("    Name: "+ name);
+		System.out.println("  	Date: "+ date.toString());
+		System.out.println("  	Length: "+ eventLength);
 	}
 }

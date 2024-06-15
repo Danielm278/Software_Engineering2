@@ -32,7 +32,7 @@ public class Calendar extends App {
 			if((event_calendar.get(i) instanceof Meeting)) {
 				Meeting currMeeting = (Meeting)event_calendar.get(i);
 				
-				if(!find_contact(currMeeting.contactName, currMeeting.contactNum)) {
+				if(contactList.searchEntryByName(currMeeting.contactName, 1)) {
 					continue;
 				}
 			}
@@ -86,7 +86,7 @@ public class Calendar extends App {
 			int[] prt_date = validateDate(st_date);
 			
 			if(prt_date != null) {
-				print_byDate(prt_date);
+				print_Event(prt_date);
 			}
 			else {
 				System.out.println("Formatting error has occurred\nPlease try again.");
@@ -95,6 +95,8 @@ public class Calendar extends App {
 		
 		//display events for a certain contact
 		case 3:
+			System.out.print("Please enter contact name: ");
+			print_Event(s.nextLine());
 			break;
 			
 		//Remove overlapping events
@@ -103,14 +105,33 @@ public class Calendar extends App {
 			
 		//Print all Events
 		case 5:
+			print_Event();
 			break;
 		}
 		
 		return 0;
 	}
 	
+	public void print_Event() {
+		event_calendar = sortByDate();
+		boolean foundFlg = false;
+		for(int i = 0; i < event_calendar.size(); i++) {
+			if(event_calendar.get(i).name != null) {
+				Event currEvent = event_calendar.get(i);
+				System.out.print((i+1) + ")");
+				currEvent.print();
+			}
+			
+			
+			foundFlg = true;
+		}
+		if(!foundFlg) {
+			System.out.print("<No events found for this date>");
+		}
+	}
+	
 	@SuppressWarnings({ "deprecation"})
-	public void print_byDate(int[] date) {
+	public void print_Event(int[] date) {
 		event_calendar = sortByDate();
 		int count = 0;
 		boolean foundFlg = false;
@@ -120,26 +141,36 @@ public class Calendar extends App {
 				if(currEvent.date.getMonth() == (date[1]-1)) {
 					if(currEvent.date.getDate() == (date[2])) {
 					count += 1;
-					System.out.println(count + ")	Name: "+ currEvent.name);
-					System.out.println("  	Date: "+ currEvent.date.toString());
-					System.out.println("  	Length: "+ currEvent.eventLength);
-					
-					if(currEvent instanceof Meeting) {
-						System.out.print("  	Contact: " + ((Meeting)currEvent).contactName);
-						System.out.println(", " + ((Meeting)currEvent).contactNum);
-					}
-					else if(currEvent instanceof non_meeting) {
-						System.out.print("  	Description: " + ((non_meeting)currEvent).description);
-					}
-					
-					}
+					System.out.print(count + ")");
+					currEvent.print();
 					foundFlg = true;
+					}
 				}
 			}
 		}
 		
 		if(!foundFlg) {
 			System.out.print("<No events found for this date>");
+		}
+	}
+	
+	public void print_Event(String contactName) {
+		if(!contactList.searchEntryByName(contactName, 1)) {
+			System.out.println("Contact not found. Please try again");
+			return;
+		}
+		
+		int count = 0;
+		for (int i = 0; i < event_calendar.size(); i++) {
+			Event currEvent = event_calendar.get(i);
+			
+			if(currEvent instanceof Meeting) {
+				if(((Meeting) currEvent).contactName.equals(contactName)) {
+					count += 1;
+					System.out.print(count + ")");
+					currEvent.print();
+				}
+			}
 		}
 	}
 	
@@ -314,14 +345,12 @@ public class Calendar extends App {
 			//setup meeting
 		    System.out.println("Please enter contact name");
 		    String contact_name = s.nextLine();
-		    System.out.println("Please enter contact number");
-		    String contact_num = s.nextLine();
-		    boolean found = find_contact(contact_name, contact_num);
+		    boolean found = contactList.searchEntryByName(contact_name, 1);
 		    	
 		    	
 	    	if(found) {
 	    		System.out.print("Meeting added successfully");
-			    event_calendar.add(new Meeting(contact_name, contact_num, name, eventLength, year,month, day, hour, minute));
+			    event_calendar.add(new Meeting(contact_name, name, eventLength, year,month, day, hour, minute));
 	    	}
 	    	else {
 	    		System.out.print("Unfortunately contact cannot be found\nPlease try again");
@@ -336,22 +365,6 @@ public class Calendar extends App {
 		   event_calendar.add(new non_meeting(name, description,eventLength, year, month, day, hour, minute));
 
 		}
-	}
-	
-	public boolean find_contact(String contact_name, String contact_num) {
-		EntryNode rootNode = this.contactList;
-    	
-    	while(rootNode != null && rootNode.name != null) {
-    		if(rootNode.name.equals(contact_name)) {
-    			if(rootNode.number.equals(contact_num)) {
-	    			return true;
-	    		}
-    		}
-    		
-    		rootNode = rootNode.next;
-    	}
-    	
-    	return false;
 	}
 	
 	//remove event
