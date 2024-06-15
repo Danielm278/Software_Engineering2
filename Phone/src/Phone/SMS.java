@@ -1,7 +1,7 @@
 package Phone;
 
 import java.util.ArrayList;
-
+//connect to App
 public class SMS extends App{
 	ArrayList<chat> chat_list = new ArrayList<chat>();
 	public SMS() {
@@ -9,7 +9,7 @@ public class SMS extends App{
 		super.appName = "SMS";
 		addMenuOptions();
 	}
-		
+//check for if a contact got deleted		
 	EntryNode contactList = new EntryNode();
 	public void startApp(EntryNode contactList) {
 		this.contactList = contactList;
@@ -34,7 +34,7 @@ public class SMS extends App{
 		super.startApp();
 	}
 	public void addMenuOptions() {
-		//initialize the menu for the calendar app
+		//initialize the menu for the SMS app
 		super.addMenuOption("send message");
 		super.addMenuOption("delete chat");
 		super.addMenuOption("print chat");
@@ -51,6 +51,7 @@ public class SMS extends App{
 		if(endFlag) {
 			return 0;
 		}		
+		//check if contact list is empty
 		if(contactList==null || contactList.name == null) {
 			System.out.println("No contacts in the phone");
 			return 0;
@@ -58,40 +59,38 @@ public class SMS extends App{
 		//provide menu functionality
 		switch(decision) {
 		
-		//add event
+		//sent message
 		case 0:
 			chooseContact(decision);
             break;
         
-        //remove event by name
+        //remove chat by name
 		case 1:
 			chooseContact(decision);
 			break;
 		
-		//display events for certain date
+		//display chat for certain contact
 		case 2:
 			chooseContact(decision);
 			break;
 		
-		//display events for a certain contact
+		//display which contacts has a specific message in chat
 		case 3:
 			searchMessage();
 			break;
 			
-		//Remove overlapping events
+		//print all chats
 		case 4:
 			printAllChat();
 			break;
-			
-		//Print all Events
-		case 5:
-			break;
+
 		}
 		
 		return 0;
 	}
+	//all 3 functions need to work with specific contact
 	public void chooseContact(int decision){
-		//get event name, time, length and type
+		//get contact name
 		System.out.println("Please enter contact name");
 		String contact = s.nextLine();
 		if(!(contactList.searchEntryByName(contact, 1))) {
@@ -100,17 +99,17 @@ public class SMS extends App{
 		else {
 			switch(decision) {
 			
-			//add event
+			//sent message
 			case 0:
 				sendMessage(contact);
 	            break;
-	        
-	        //remove event by name
+
+	    	//display chat for certain contact
 			case 1:
 				removeChat(contact);
 				break;
 			
-			//display events for certain date
+			//display which contacts has a specific message in chat
 			case 2:
 				printChat(contact);
 				break;
@@ -118,45 +117,48 @@ public class SMS extends App{
 			}
 		}
 	}
+	//send message to a specific contact and if contact is empty creat new chat
 	public void sendMessage(String contact) {
 		System.out.println("Please enter message");
 		String message = s.nextLine();
-
+		//search contact
 		for(int i = 0; i < chat_list.size(); i++) {
 			if(chat_list.get(i).contactName.equals(contact)) {
+				//if chat exist add message
 				chat_list.get(i).message_list.add(message);
 				return;
 			}
 		}
+		//if not create new
 		chat_list.add(new chat(contact, message));
 	} 
-	//remove event
+	//remove chat
 	public void removeChat(String contact){
-		//find and remove
+		//find contact
 		for(int i = 0; i < chat_list.size(); i++) {
 			if(chat_list.get(i).contactName.equals(contact)) {
+				//if found remove
 				chat_list.remove(i);
 				System.out.println("Removed chat");
 				return;
 			}
-
-			System.out.println("That chat dosent exist");
+			//else
 		}
 
-		System.out.println("Chat doesnt exist");
 	}
 	
 	public void searchMessage() {
-		//empty warning***
+		//enter a message and search all chats for it
 		System.out.println("Please enter the message you want to search");
 		String message = s.nextLine();
 		for(int i = 0; i < chat_list.size(); i++) {
+			//use function is chat
 			chat_list.get(i).findSentence(message);
 			}
 
 	} 
 	public void printChat(String contact) {
-		//empty warning***
+		//print a specific chat
 		for(int i = 0; i < chat_list.size(); i++) {
 			if(chat_list.get(i).contactName.equals(contact)) {
 				System.out.println("chat with: " + chat_list.get(i).contactName);
@@ -167,7 +169,9 @@ public class SMS extends App{
 			}	
 		}
 	} 
+	
 	public void printAllChat() {
+		//for all chats print all chat
 		for(int i = 0; i < chat_list.size(); i++) {
 			System.out.println("chat with: " + chat_list.get(i).contactName);
 			for(int j = 0; j < chat_list.get(i).message_list.size(); j++) {
