@@ -22,7 +22,7 @@ public class Main {
 					System.out.println((appArray.length + 1)+ ") Phone Book");
 					System.out.println((appArray.length + 2)+ ") Quit");
 				decision = s.nextInt();
-				}while(decision > appArray.length + 1 || decision < 0);
+				}while(decision > appArray.length + 2 || decision < 0);
 				
 				if (decision == appArray.length + 2){
 					System.out.println("Thank you for using phone app");
