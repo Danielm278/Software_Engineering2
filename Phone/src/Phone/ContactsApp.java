@@ -7,11 +7,14 @@ package Phone;
 import java.util.List;
 import java.util.Scanner;
 public class  ContactsApp{
+	EntryNode rootNode;
 
-	public static void startApp(String[] args) {
+	public ContactsApp() {
+	}
+
+	public EntryNode startApp() {
 		Scanner s = new Scanner(System.in);
 		int decision;
-		EntryNode rootNode = null;
 
 		while (true) {
 			// Display menu
@@ -139,8 +142,8 @@ public class  ContactsApp{
 					}
 					break;
 				case 10: //Exit
-					System.out.println("quitting the program.\nthank you!");
-					System. exit(0);
+					System.out.println("Thank you for using the contact app\n");
+					return null;
 				}
 
 				System.out.println();
@@ -305,10 +308,9 @@ public class  ContactsApp{
 				}
 				break;
 			case 10://Exit
-				System.out.println("quitting the program.\nthank you!");
-				System.exit(0);
+				System.out.println("Thank you for using the contact app\n");			
+				return rootNode;
 			}
-			System.out.println();
 		}
 	}
 }

@@ -18,6 +18,7 @@ public class Media {
 		this.length = length;
 	}
 	
+	
 	Media(){
 		Scanner s = new Scanner(System.in);
 		
