@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Calendar extends App {
-	//hi
 	//set up the event calendar
 	ArrayList<Event> event_calendar = new ArrayList<Event>();
 	EntryNode contactList = new EntryNode();
