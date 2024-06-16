@@ -87,7 +87,7 @@ public class Calendar extends App {
 			int[] prt_date = validateDate(st_date);
 			
 			if(prt_date != null) {
-				print_Event(prt_date);
+				print_all(prt_date);
 			}
 			else {
 				System.out.println("Formatting error has occurred\nPlease try again.");
@@ -97,7 +97,7 @@ public class Calendar extends App {
 		//display events for a certain contact
 		case 3:
 			System.out.print("Please enter contact name: ");
-			print_Event(s.nextLine());
+			print_all(s.nextLine());
 			break;
 			
 		//Remove overlapping events
@@ -107,14 +107,14 @@ public class Calendar extends App {
 			
 		//Print all Events
 		case 5:
-			print_Event();
+			print_all();
 			break;
 		}
 		
 		return 0;
 	}
 	
-	public void print_Event() {
+	public void print_all() {
 		event_calendar = sortByDate();
 		boolean foundFlg = false;
 		for(int i = 0; i < event_calendar.size(); i++) {
@@ -133,7 +133,7 @@ public class Calendar extends App {
 	}
 	
 	@SuppressWarnings({ "deprecation"})
-	public void print_Event(int[] date) {
+	public void print_all(int[] date) {
 		event_calendar = sortByDate();
 		int count = 0;
 		boolean foundFlg = false;
@@ -156,7 +156,7 @@ public class Calendar extends App {
 		}
 	}
 	
-	public void print_Event(String contactName) {
+	public void print_all(String contactName) {
 		if(!contactList.searchEntryByName(contactName, 1)) {
 			System.out.println("Contact not found. Please try again");
 			return;
