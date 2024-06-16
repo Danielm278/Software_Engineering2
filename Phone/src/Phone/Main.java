@@ -20,11 +20,12 @@ public class Main {
 					}
 
 					System.out.println((appArray.length + 1)+ ") Phone Book");
-					System.out.println((appArray.length + 2)+ ") Quit");
+					System.out.println((appArray.length + 1)+ ") Access all data");
+					System.out.println((appArray.length + 3)+ ") Quit");
 				decision = s.nextInt();
-				}while(decision > appArray.length + 2 || decision < 0);
+				}while(decision > appArray.length + 3 || decision < 0);
 				
-				if (decision == appArray.length + 2){
+				if (decision == appArray.length + 3){
 					System.out.println("Thank you for using phone app");
 					System.out.println("Bye Bye");
 					return;
@@ -33,6 +34,20 @@ public class Main {
 
 				if(decision == appArray.length+1) {
 					contactList = contactApp.startApp();
+				}
+				else if(decision == appArray.length+2) {
+					for(App app:appArray){
+						System.out.println(app.appName + ": ");
+						app.print_all();
+					}
+					
+					System.out.println("Contact List: ");
+					if(contactList == null){
+						System.out.println("No Contacts Saved");
+					}
+					else{
+						contactList.printList();
+					}
 				}
 				else {
 					for(App app : appArray) {
