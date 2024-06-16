@@ -81,7 +81,7 @@ public class SMS extends App{
 			
 		//print all chats
 		case 4:
-			printAllChat();
+			print_all();
 			break;
 
 		}
@@ -169,8 +169,8 @@ public class SMS extends App{
 			}	
 		}
 	} 
-	
-	public void printAllChat() {
+	@Override
+	public void print_all() {
 		//for all chats print all chat
 		for(int i = 0; i < chat_list.size(); i++) {
 			System.out.println("chat with: " + chat_list.get(i).contactName);
