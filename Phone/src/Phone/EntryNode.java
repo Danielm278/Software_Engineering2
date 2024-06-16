@@ -72,13 +72,15 @@ public class EntryNode {
 			//if entry found then remove it from the list dependent on its relative location
 			if(current.name.equals(name)) {
 				if (current.prev != null && current.next != null) {
+
 					current.prev.next = current.next;
 					current.next.prev = current.prev;
 				}
-				else if (prev != null) {
+				else if (current.prev != null) {
 					current.prev.next = null;
 				}
-				else if (next != null) {
+				else if (current.next != null) {
+
 					current.next.prev = null;
 					return next;
 				}
