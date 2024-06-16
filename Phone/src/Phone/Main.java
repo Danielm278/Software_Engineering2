@@ -8,7 +8,7 @@ public class Main {
 		
 		System.out.println("Welcome to phone");
 		Scanner s = new Scanner(System.in);
-		App[] appArray = {new MediaPlayer(), new Calendar()};
+		App[] appArray = {new MediaPlayer(), new Calendar(),new SMS()};
 		ContactsApp contactApp = new ContactsApp(); //will always be the last option
 		int decision = -1;
 		try {
@@ -39,6 +39,9 @@ public class Main {
 						if(decisionString.equals(app.appId)){
 							if(app instanceof Calendar) {
 								((Calendar)app).startApp(contactList);
+							}
+							else if(app instanceof SMS) {
+								((SMS)app).startApp(contactList);
 							}
 							else {
 								app.startApp();
