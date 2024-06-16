@@ -20,6 +20,9 @@ public abstract class App implements IPrintable, Comparable<App>{
 		}
 		
 	}
+
+	public void print_all(){
+	}
 	
 	public int waitForInputAndRun() {
 		int decision = -1;
