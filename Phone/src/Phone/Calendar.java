@@ -2,6 +2,7 @@ package Phone;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 public class Calendar extends App {
 	//set up the event calendar
@@ -101,6 +102,7 @@ public class Calendar extends App {
 			
 		//Remove overlapping events
 		case 4:
+			remove_overlap();
 			break;
 			
 		//Print all Events
@@ -172,6 +174,38 @@ public class Calendar extends App {
 				}
 			}
 		}
+	}
+	
+	
+	public void remove_overlap(){
+		event_calendar = sortByDate();
+		ArrayList<Event> temp = event_calendar;
+		ArrayList<Boolean> removed = new ArrayList<Boolean>();
+		int count = 0;
+		for (int i = 0; i < event_calendar.size(); i++) {
+			removed.add(false);
+		}
+		
+		for (int i = 0; i < event_calendar.size(); i++) {
+			if(removed.get(i)) {
+				continue;
+			}
+			
+			Date currEvent_date = event_calendar.get(i).date;
+			int event_length = event_calendar.get(i).eventLength;
+			currEvent_date.setMinutes(currEvent_date.getMinutes() + event_length);
+			for (int j = i+1; j < event_calendar.size(); j++) {
+				if(currEvent_date.after(event_calendar.get(j).date)) {
+					temp.remove(event_calendar.get(j));
+					removed.set(j, true);
+					count += 1;
+				}
+			}
+
+			currEvent_date.setMinutes(currEvent_date.getMinutes() - event_length);
+		}
+		
+		System.out.println("Number of Overlapping Events Removed: " + count);
 	}
 	
 	public ArrayList<Event> sortByDate(){
