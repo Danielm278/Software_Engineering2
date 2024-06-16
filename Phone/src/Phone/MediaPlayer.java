@@ -32,15 +32,20 @@ public class MediaPlayer extends App{
 			PlayByName(s.nextLine());
 			break;
 		case 2:
-			if(mediaArray.isEmpty()) {
-				System.out.println("No media files yet. try to add a new media file!");
-				break;
-			}
-			for(Media media : mediaArray) {
-				media.Play();
-			}
+			print_all();
 		}
 		return decision;
+	}
+
+	@Override
+	void print_all(){
+		if(mediaArray.isEmpty()) {
+			System.out.println("No media files yet. try to add a new media file!");
+			break;
+		}
+		for(Media media : mediaArray) {
+			media.Play();
+		}
 	}
 	
 	void AddMedia() {
