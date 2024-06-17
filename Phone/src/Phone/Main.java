@@ -20,7 +20,7 @@ public class Main {
 					}
 
 					System.out.println((appArray.length + 1)+ ") Phone Book");
-					System.out.println((appArray.length + 1)+ ") Access all data");
+					System.out.println((appArray.length + 2)+ ") Access all data");
 					System.out.println((appArray.length + 3)+ ") Quit");
 				decision = s.nextInt();
 				}while(decision > appArray.length + 3 || decision < 0);
