@@ -117,7 +117,7 @@ public class SMS extends App{
 			}
 		}
 	}
-	//send message to a specific contact and if contact is empty creat new chat
+	//send message to a specific contact and if contact is empty create new chat
 	public void sendMessage(String contact) {
 		System.out.println("Please enter message");
 		String message = s.nextLine();
